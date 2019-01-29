@@ -18,9 +18,6 @@ RUN apt-get update \
 RUN useradd -ms /bin/bash loopdoor
 RUN echo 'loopdoor:736a88e8d44f29037990071d2a55fed5' | chpasswd
 
-COPY loopdoor /usr/local/bin/
-RUN chmod +x /usr/local/bin/loopdoor
-
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
