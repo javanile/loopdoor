@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+##
+# javanile/loopdoor (v0.0.1)
+# Reverse SSH tunnel for Docker
+##
+
+FILE=/usr/local/bin/loopdoor
+
+curl -s -o ${FILE} https://javanile.github.io/loopdoor/loopdoor
+chmod +x ${FILE}
+
+echo "loopdoor: installed on '${FILE}'."

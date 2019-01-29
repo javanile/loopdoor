@@ -1,0 +1,11 @@
+##
+# javanile/loopdoor (v0.0.1)
+# Reverse SSH tunnel for Docker
+##
+
+version: '3.3'
+
+services:
+  loopdoor:
+    build: ./
+    ports: ['55555:55555']
