@@ -2,8 +2,9 @@
 
 ##
 # javanile/loopdoor (v0.0.1)
-# Reverse SSH tunnel for Docker
 ##
+
+echo "----[ loopdoor v0.0.1 ]----"
 
 ## Variables
 r="^([^:]*)(:([0-9]+))?$" && [[ "${LOOPDOOR_HOST}" =~ $r ]] && h="${BASH_REMATCH[1]}" && p="${BASH_REMATCH[3]}"
@@ -13,28 +14,32 @@ USER=${LOOPDOOR_USER:-loopdoor}
 PASS=${LOOPDOOR_PASSWORD:-loopdoor}
 
 ## Apply password
-echo "backdoor:${PASS}" | chpasswd
+echo "loopdoor:${PASS}" | chpasswd
 
 ## Run as master
-if [ -n "${LOOPDOOR_HOST}" ]; then
-    sleep 1
-    echo "(*) Master listen on port '${PORT}'."
+if [ -z "${LOOPDOOR_HOST}" ]; then
+    echo "(*) Master node listen on port '${PORT}'."
     /usr/sbin/sshd
     while sleep 5; do
         echo "(*) Try opening connection..."
-        ssh -p 5000 -l ${USER} 127.0.0.1
+        sshpass -p ${PASS} \
+        ssh -o StrictHostKeyChecking=accept-new \
+            -p 5000 -l ${USER} 127.0.0.1
+        echo "(!) Press Ctrl+C to exit."
     done
-    echo "(?) Unexpected error."
+    echo "  Exit."
     exit 1
 fi
 
 ## Run as slave
 while sleep 5; do
-    echo "(*) Try slave connection..."
-    sshpass -p ${PASSWORD} \
-    shh -o StrictHostKeyChecking=accept-new \
-        -R 5000:127.0.0.1:55555 \
-        -p ${PORT} loopdoor@${HOST}
+    echo "(*) Slave node initialization..."
+    /usr/sbin/sshd
+    echo "(*) Try slave to master connection..."
+    sshpass -p ${PASS} \
+    ssh -o StrictHostKeyChecking=accept-new \
+        -R 5000:127.0.0.1:55555 -p ${PORT} -l loopdoor ${HOST}
+    echo "(!) Press Ctrl+C to exit."
 done
-echo "(?) Unexpected error."
+echo "  Exit."
 exit 1

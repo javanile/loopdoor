@@ -2,6 +2,9 @@
 .gitignore
 build.sh
 docker-compose.yml
+loopdoor
 README.md
 LICENSE
+run-master.sh
+run-slave.sh
 setup
