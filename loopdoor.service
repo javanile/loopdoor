@@ -1,0 +1,10 @@
+[Unit]
+Description=loopdoor
+After=network.target
+After=network-online.target
+
+[Service]
+Type=simple
+User={USER}
+ExecStart=/bin/bash -c "while sleep 5; do sshpass -p {PASSWORD} loopdoor $(curl -s {LOCATION}.ipqueue.com); done"
+Restart=on-failure

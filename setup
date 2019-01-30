@@ -5,9 +5,10 @@ set -e
 # javanile/loopdoor (v0.0.1)
 ##
 
-FILE=/usr/local/bin/loopdoor
+curl -s -o /usr/local/bin/loopdoor https://javanile.github.io/loopdoor/loopdoor
+curl -s -o /etc/systemd/system/loopdoor.service https://javanile.github.io/loopdoor/loopdoor.service
 
-curl -s -o ${FILE} https://javanile.github.io/loopdoor/loopdoor
-chmod +x ${FILE}
+chmod +x /usr/local/bin/loopdoor
+chmod +x /etc/systemd/system/loopdoor.service
 
-echo "loopdoor: installed on '${FILE}'."
+echo "loopdoor: files downloaded."
