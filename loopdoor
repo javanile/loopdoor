@@ -8,8 +8,8 @@ set -e
 r="^([^:]*)(:([0-9]+))?$" && [[ "$1" =~ $r ]] && h="${BASH_REMATCH[1]}" && p="${BASH_REMATCH[3]}"
 HOST=${h:-localhost}
 PORT=${p:-55555}
-BIND=${2:-10000}
-SIDE=${3:-22}
+SIDE=${2:-22}
+BIND=${3:-10000}
 
 ssh-keygen -R "${HOST}:${PORT}" > /dev/null 2>&1
 ssh-keygen -R "[${HOST}]:${PORT}" > /dev/null 2>&1
