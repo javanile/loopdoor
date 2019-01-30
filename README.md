@@ -1,7 +1,18 @@
 # loopdoor
 
+Loopdoor is a command line tool that wrap SSH Reverse Tunnel 
+to connect `master` station (laptop, server, etc...) placed outside a private LAN 
+and get control of `slave` station placed inside the private LAN.
 
+## Setup `master` station 
+The `master` station need to have Docker installed, than run this command and wait for `slave` station connection. 
+```
+$ curl -XPOST mystation.ipqueue.com && docker run --rm -it \
+       -p 55555:55555 -e LOOPDOOR_PASSWORD=loopdoor javanile/loopdoor
+```
 
+## Setup `slave` station 
+The `master` station need to have SSH Client installed.
 ```bash
 $ curl -sL https://javanile.github.io/loopdoor/setup | sudo -E bash -
 ```
@@ -11,14 +22,6 @@ $ curl -OL javanile.github.io/loopdoor/loopdoor
 $ chmod +x loopdoor
 $ sudo loopdoor /usr/local/bin
 ```
-
-
-
-```
-$ curl -XPOST myhome.ipqueue.com && docker run --rm -it -e javanile/loopdoor
-```
-
-
 
 ```yaml
 ## public backdoor server
