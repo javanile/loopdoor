@@ -1,6 +1,6 @@
 # loopdoor
 
-Loopdoor is a command line tool that wrap SSH Reverse Tunnel 
+Loopdoor is a command-line tool that wrap SSH Reverse Tunnel 
 to connect `master` station (laptop, server, etc...) placed outside a private LAN 
 and get control of `slave` station placed inside the private LAN.
 
