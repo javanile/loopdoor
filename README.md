@@ -7,12 +7,12 @@ and get control of `slave` station placed inside the private LAN.
 ## Setup `master` station 
 The `master` station need to have Docker installed, than run this command and wait for `slave` station connection. 
 ```
-$ curl -XPOST myhome.ipqueue.com && docker run --rm -it -p 55555:55555 \
+$ curl -XPOST master.ipqueue.com && docker run --rm -it -p 55555:55555 \
        -e LOOPDOOR_PASSWORD=loopdoor -e SLAVE_USER=ubuntu -e SLAVE_PASSWORD=ubuntu javanile/loopdoor
 ```
 
 ## Setup `slave` station 
-The `master` station need to have SSH Client installed.
+The `slave` station need to have SSH Client installed.
 ```bash
 $ curl -sL https://javanile.github.io/loopdoor/setup | sudo -E bash -
 ```
@@ -21,6 +21,12 @@ $ curl -sL https://javanile.github.io/loopdoor/setup | sudo -E bash -
 $ curl -OL javanile.github.io/loopdoor/loopdoor
 $ chmod +x loopdoor
 $ sudo loopdoor /usr/local/bin
+```
+
+```bash
+$ curl -OL javanile.github.io/loopdoor/loopdoor.service
+$ chmod +x loopdoor.service
+$ sudo loopdoor.servive /etc/systemd/system
 ```
 
 ```yaml
