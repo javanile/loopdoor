@@ -1,6 +1,5 @@
 ##
-# javanile/backdoor (v0.0.1)
-# Reverse SSH tunnel for Docker
+# javanile/loopdoor (v0.0.1)
 ##
 
 FROM ubuntu:18.04
