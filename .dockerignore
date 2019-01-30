@@ -1,10 +1,11 @@
 .idea/
 .gitignore
-build.sh
+.private
 docker-compose.yml
-loopdoor
-README.md
 LICENSE
+loopdoor
+loopdoor.service
+README.md
 run-master.sh
 run-slave.sh
 setup
