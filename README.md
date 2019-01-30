@@ -7,7 +7,7 @@ $ curl -sL https://javanile.github.io/loopdoor/setup | sudo -E bash -
 ```
 
 ```bash
-$ curl -O javanile.github.io/loopdoor/loopdoor
+$ curl -OL javanile.github.io/loopdoor/loopdoor
 $ chmod +x loopdoor
 $ sudo loopdoor /usr/local/bin
 ```
