@@ -18,12 +18,16 @@ SIDE=${LOOPDOOR_SIDE:-55555}
 ## Apply password
 echo "loopdoor:${PASS}" | chpasswd
 
+## Clean-up known hosts
+ssh-keygen -R "${HOST}:${PORT}" > /dev/null 2>&1
+ssh-keygen -R "[${HOST}]:${PORT}" > /dev/null 2>&1
+
 ## Run as 'master'
 if [ -z "${LOOPDOOR_HOST}" ]; then
     echo "(*) Master node listen on port '${PORT}'."
     /usr/sbin/sshd
     while sleep 5; do
-        echo "(*) Try opening connection..."
+        echo "(*) Try opening connection on bind '${BIND}'..."
         sshpass -p ${PASS} \
         ssh -o StrictHostKeyChecking=accept-new \
             -p ${BIND} -l ${USER} 127.0.0.1

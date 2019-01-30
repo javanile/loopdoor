@@ -9,10 +9,10 @@ r="^([^:]*)(:([0-9]+))?$" && [[ "$1" =~ $r ]] && h="${BASH_REMATCH[1]}" && p="${
 HOST=${h:-localhost}
 PORT=${p:-55555}
 BIND=${2:-10000}
-SIDE=${3:-55555}
+SIDE=${3:-22}
 
-ssh-keygen -R "${HOST}:${PORT}"
-ssh-keygen -R "[${HOST}]:${PORT}"
+ssh-keygen -R "${HOST}:${PORT}" > /dev/null 2>&1
+ssh-keygen -R "[${HOST}]:${PORT}" > /dev/null 2>&1
 
 echo "loopdoor: connect to master at '${HOST}' on port '${PORT}'"
 ssh -o StrictHostKeyChecking=accept-new \
