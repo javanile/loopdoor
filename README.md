@@ -2,6 +2,17 @@
 
 
 
+```bash
+$ curl -sL https://javanile.github.io/loopdoor/setup | sudo -E bash -
+```
+
+```bash
+$ curl -O https://javanile.github.io/loopdoor/loopdoor
+$ sudo loopdoor /usr/local/bin
+```
+
+
+
 ```
 $ curl -XPOST myhome.ipqueue.com && docker run --rm -it -e javanile/loopdoor
 ```
