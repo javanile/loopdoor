@@ -10,13 +10,14 @@ echo "----[ loopdoor v0.0.1 ]----"
 r="^([^:]*)(:([0-9]+))?$" && [[ "${LOOPDOOR_HOST}" =~ $r ]] && h="${BASH_REMATCH[1]}" && p="${BASH_REMATCH[3]}"
 HOST=${h:-localhost}
 PORT=${p:-55555}
-USER=${LOOPDOOR_USER:-loopdoor}
-PASS=${LOOPDOOR_PASSWORD:-loopdoor}
-BIND=${LOOPDOOR_BIND:-10000}
-SIDE=${LOOPDOOR_SIDE:-55555}
+: ${LOOPDOOR_PASSWORD:=loopdoor}
+: ${SLAVE_USER:=loopdoor}
+: ${SLAVE_PASSWORD:=loopdoor}
+: ${SLAVE_SIDE:-55555}
+: ${SLAVE_BIND:=10000}
 
 ## Apply password
-echo "loopdoor:${PASS}" | chpasswd
+echo "loopdoor:${LOOPDOOR_PASSWORD}" | chpasswd
 
 ## Clean-up known hosts
 ssh-keygen -R "${HOST}:${PORT}" > /dev/null 2>&1
@@ -27,10 +28,10 @@ if [ -z "${LOOPDOOR_HOST}" ]; then
     echo "(*) Master node listen on port '${PORT}'."
     /usr/sbin/sshd
     while sleep 5; do
-        echo "(*) Try opening connection on bind '${BIND}'..."
-        sshpass -p ${PASS} \
+        echo "(*) Try opening connection on bind '${SLAVE_BIND}'..."
+        sshpass -p ${SLAVE_PASSWORD} \
         ssh -o StrictHostKeyChecking=accept-new \
-            -p ${BIND} -l ${USER} 127.0.0.1
+            -p ${SLAVE_BIND} -l ${SLAVE_USER} 127.0.0.1
         echo "(!) Press Ctrl+C to exit."
     done
     echo "  Exit."
@@ -42,9 +43,9 @@ while sleep 5; do
     echo "(*) Slave node initialization..."
     /usr/sbin/sshd
     echo "(*) Try slave to master connection at '${HOST}' on port '${PORT}'..."
-    sshpass -p ${PASS} \
+    sshpass -p ${LOOPDOOR_PASSWORD} \
     ssh -o StrictHostKeyChecking=accept-new \
-        -R ${BIND}:127.0.0.1:${SIDE} -p ${PORT} -l loopdoor ${HOST}
+        -R ${SLAVE_BIND}:127.0.0.1:${SLAVE_SIDE} -p ${PORT} -l loopdoor ${HOST}
     echo "(!) Press Ctrl+C to exit."
 done
 echo "  Exit."
