@@ -13,7 +13,7 @@ PORT=${p:-55555}
 : ${LOOPDOOR_PASSWORD:=loopdoor}
 : ${SLAVE_USER:=loopdoor}
 : ${SLAVE_PASSWORD:=loopdoor}
-: ${SLAVE_SIDE:-55555}
+: ${SLAVE_SIDE:=55555}
 : ${SLAVE_BIND:=10000}
 
 ## Apply password
@@ -29,9 +29,14 @@ if [ -z "${LOOPDOOR_HOST}" ]; then
     /usr/sbin/sshd
     while sleep 5; do
         echo "(*) Try opening connection on bind '${SLAVE_BIND}'..."
-        sshpass -p ${SLAVE_PASSWORD} \
-        ssh -o StrictHostKeyChecking=accept-new \
-            -p ${SLAVE_BIND} -l ${SLAVE_USER} 127.0.0.1
+        if [ -n "${SLAVE_PASSWORD}" ]; then
+            sshpass -p ${SLAVE_PASSWORD} \
+            ssh -o StrictHostKeyChecking=accept-new \
+                -p ${SLAVE_BIND} -l ${SLAVE_USER} 127.0.0.1
+        else
+            ssh -o StrictHostKeyChecking=accept-new \
+                -p ${SLAVE_BIND} -l ${SLAVE_USER} 127.0.0.1
+        fi
         echo "(!) Press Ctrl+C to exit."
     done
     echo "  Exit."
