@@ -11,5 +11,6 @@ PORT=${p:-55555}
 BIND=${2:-10000}
 SIDE=${3:-55555}
 
+echo "loopdoor: connect to master at '${HOST}' on port '${PORT}'"
 ssh -o StrictHostKeyChecking=accept-new \
-    -R ${BIND}:127.0.0.1:${SIDE} -p ${PORT} -l backdoor ${HOST}
+    -R ${BIND}:127.0.0.1:${SIDE} -p ${PORT} -l loopdoor ${HOST}
