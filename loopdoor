@@ -11,6 +11,8 @@ PORT=${p:-55555}
 BIND=${2:-10000}
 SIDE=${3:-55555}
 
+ssh-keygen -R ${HOST}:${PORT}
+
 echo "loopdoor: connect to master at '${HOST}' on port '${PORT}'"
-ssh -o StrictHostKeyChecking=no \
+ssh -o StrictHostKeyChecking=accept-new \
     -R ${BIND}:127.0.0.1:${SIDE} -p ${PORT} -l loopdoor ${HOST}
