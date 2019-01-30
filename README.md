@@ -14,7 +14,7 @@ $ curl -XPOST master.ipqueue.com && docker run --rm -it -p 55555:55555 \
 ## Setup `slave` station 
 The `slave` station need to have SSH Client installed.
 ```bash
-$ curl -sL https://javanile.github.io/loopdoor/setup | sudo -E bash -
+$ curl -sL javanile.github.io/loopdoor/setup | sudo -E bash -
 ```
 
 ```bash
